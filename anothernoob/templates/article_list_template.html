@@ -1,0 +1,23 @@
+{% load endless %}
+{% load imagekit %}
+{% load thumbnail %}
+{% lazy_paginate article_list %}
+{% for article in article_list %}
+    <article class="article_list">
+        <a href="/article/{{ article.url_slug  }}/{{ article.id }}">
+            {#% thumbnail article.cover '128x128' as article_thumb %#}
+            <div style="background-image: url({{ MEDIA_URL }}{{ article.cover }})" class="thumb screen-only"></div>
+            <h2>{{ article.title|capfirst }}</h2>
+            <div class="summary">
+                {{ article.summary }}
+            </div>
+            <i class="extra_data">
+                {% if article.author.first_name %}
+                por <span class="author">{{ article.author.first_name }} {{ article.author.last_name }}</span> 
+                {% endif %}
+                el <i class="date">{{ article.date }}</i>
+            </i>
+        </a>
+    </article>
+{% endfor %}
+{% show_more %}

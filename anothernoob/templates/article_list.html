@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    AnotherNoob.com
+{% endblock %}
+
+{% block og_image %}
+    <meta property="og:image"           content="{{ MEDIA_URL }}{{ article_promoted.cover }}" />
+{% endblock %}
+
+{% block header_image %}
+    {{ MEDIA_URL }}{{ article_promoted.cover }}
+{% endblock %}
+
+{% block header_box %}
+    <a href="/article/{{ article_promoted.url_slug }}/{{ article_promoted.id }}">
+        <h1>{{ article_promoted.title }}</h1>
+        <span class="summary">{{ article_promoted.summary }}</span>
+        <span class="author">por {{ article_promoted.author.first_name }} {{ article_promoted.author.last_name }}</span>
+    </a>
+{% endblock %}
+
+{% block page_content %}
+    {% block js %}
+        {{ block.super }}
+        <script src="{{ STATIC_URL }}js/endless_pagination/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}js/endless_pagination/endless_on_scroll.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+        <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+        <script>
+            $.endlessPaginate({
+                paginateOnScroll: true,
+                paginateOnScrollMargin: 100,
+                paginateOnScrollChunkSize: 5
+            });
+        </script>
+    {% endblock %}
+    <div id="article_list">
+        {% include article_list_template %}
+    </div>
+    <aside>
+        <div class="ad adaptable screen-only">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8631344561683272"
+                     data-ad-slot="2071986204"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </aside>
+{% endblock %}

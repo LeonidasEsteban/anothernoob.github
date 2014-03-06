@@ -1,0 +1,36 @@
+@-webkit-keyframes jinx {
+    0% {
+        -webkit-transform: rotate(-20deg);
+        left: -10%;
+        top: 100px;
+    }
+    40% {
+        -webkit-transform: rotate(0deg);
+        top: 50px;
+    }
+    100% {
+        -webkit-transform: rotate(20deg);
+        left: 150%;
+        top: 100px;
+    }
+}
+
+body {
+    background-color: #FA7E4C;
+    background-image: url(../img/png/bkg.fw.png);
+    background-repeat: repeat-x;
+    overflow: hidden;
+}
+#gif {
+    background-color: #FA864C;
+    background-image: url(../img/gif/01.gif);
+    height: 366px;
+    margin: 100px auto;
+    width: 600px;
+}
+#jinx {
+    -webkit-animation: jinx 45s infinite;
+    height: 40px;
+    position: absolute;
+    width: 46px;
+}

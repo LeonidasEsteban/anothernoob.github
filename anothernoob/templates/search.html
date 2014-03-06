@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    AnotherNoob.com
+{% endblock %}
+
+{% block header_class %}
+    suggest
+{% endblock %}
+
+{% block header_image %}
+    {% for article in article_list|slice:':1' %}
+        {{ MEDIA_URL }}{{ article.cover }}
+    {% endfor %}
+{% endblock %}
+
+{% block header_box %}
+    {#% load imagekit %#}
+    {% for article in article_list|slice:':3' %}
+        <a href="/article/{{ article.url_slug }}/{{ article.id }}">
+            {#% generateimage 'library:suggestion_thumb' source=article.cover as suggestion_thumb %#}
+            <div class="article_suggest" style="background-image: url({{ MEDIA_URL }}{{ article.cover }})">
+                <div class="content">
+                    <h2>{{ article.title }}</h2>
+                    <span>{{ article.summary }}</span>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}
+
+{% block page_content %}
+    <div id="article_list">
+        {% include article_list_template %}
+    </div>
+    <aside>
+        <div class="ad adaptable">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8631344561683272"
+                     data-ad-slot="2071986204"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </aside>
+{% endblock %}

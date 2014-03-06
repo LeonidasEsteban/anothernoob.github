@@ -1,0 +1,7 @@
+.elasticbeanstalk/
+anothernoob/media/anothernoob\media\
+*.jpg
+*.pyc
+anothernoob/settings.py
+.ebextensions
+.elasticbeanstalk

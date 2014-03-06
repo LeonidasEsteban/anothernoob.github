@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    {{ article.title|capfirst }} - AnotherNoob.com
+{% endblock %}
+
+{% block page_header %}
+    <meta property="fb:app_id"          content="443313005794335" />
+    <meta property="og:locale"          content="es_CO">
+    <meta property="og:type"            content="article" />
+    <meta property="og:url"             content="{{ request.path }}" />
+    <meta property="og:title"           content="{{ article.title }}" />
+    <meta property="og:site_name"       content="AnotherNoob.com">
+    <meta name="description"            content="{{ article.summary }}">
+    <meta property="og:description"     content="{{ article.summary }}">
+    <meta property="og:image"           content="{{ MEDIA_URL }}{{ article.cover }}" />
+    <meta property="article:author"     content="{{ article.author }}" />
+{% endblock %}
+
+{% block header_class %}
+    single
+{% endblock %}
+
+{% block header_image %}
+{{ MEDIA_URL }}{{ article.cover }}
+{% endblock %}
+
+{% block header_box %}
+{% endblock %}
+
+{% block add_top %}
+    <div class="ad adaptable screen-only">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8631344561683272"
+                 data-ad-slot="2071986204"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+{% endblock %}
+
+{% block page_content %}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=443313005794335";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    {% block js %}
+        {{ block.super }}
+        <script src="{{ STATIC_URL }}js/endless_pagination/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}js/endless_pagination/endless_on_scroll.js"></script>
+        <script>
+            $.endlessPaginate({
+                paginateOnScroll: true,
+                paginateOnScrollMargin: 20,
+                paginateOnScrollChunkSize: 5
+            });
+        </script>
+    {% endblock %}
+    <article class="article_single">
+        <h1>{{ article.title|capfirst }}</h1>
+        <div class="summary">
+            {{ article.summary }}
+        </div>
+        <i class="extra_data">
+            {% if article.author.first_name %}
+                por <span class="author">{{ article.author.first_name }} {{ article.author.last_name }}</span> 
+            {% endif %}
+            el <i class="date">{{ article.date }}</i>
+        </i>
+        <div class="social_profile">
+            <b>Síguenos en Facebook o Twitter para que no te pierdas de nada.</b>
+            <div class="fb-like" data-href="https://facebook.com/an0thernoob" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+            <a href="https://twitter.com/An0therNoob" class="twitter-follow-button" data-show-count="true" data-lang="es">@An0therNoob</a>
+        </div>
+        <div class="mobile-only">
+          <img src="{{ MEDIA_URL }}{{ article.cover }}" alt="{{ article.title }}">
+        </div>
+        <div class="content">
+            {{ article.content|safe }}
+        </div>
+        {% load bitly %}
+        <div class="share_buttons">
+            <b>¡Es demasiado peligroso ir solo! Toma uno de estos.</b>
+            <div class="fb-like button_share" data-href="{{ request.path|bitlify }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="An0therNoob" data-lang="es">Twittear</a>
+            <div class="g-plusone button_share" data-size="medium"></div>
+            {% load comments %}
+        </div>
+        <div class="source">
+            <b>Fuente: </b>{{ article.source|safe }}
+        </div>
+    </article>
+    {% if not article_list.count = 0 %}
+        <div class="suggestion_bottom">
+            <span>Esto te podría interesar</span>
+            {% for article in article_list|slice:':3' %}
+                <a href="/article/{{ article.url_slug }}/{{ article.id }}?ref=bt_sgg">
+                    {#% generateimage 'library:suggestion_thumb' source=article.cover as suggestion_thumb %#}
+                    <div class="article_suggest" style="background-image: url({{ MEDIA_URL }}{{ article.cover }})">
+                        <div class="content">
+                            <h2>{{ article.title }}</h2>
+                            <span>{{ article.summary }}</span>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="comments">
+        {% if user.is_authenticated %}
+            {% get_comment_form for article as comment_form %}
+            <form action="{% comment_form_target %}" method="post" id="comment_form" class="comment_form">
+                <div class="user">
+                    <span class="username">{{ user.first_name }} {{ user.last_name }}</span>
+                    <span class="extra_data">{{ comment_count }} {% if comment_count = 0 %} comentarios {% elif comment_count = 1 %} comentario {% else %} comentarios {% endif %}</span>
+                </div>
+                {% csrf_token %}
+                <label class="comment_textarea">
+                    {{ comment_form.comment }}
+                </label>
+                {{ comment_form.honeypot }}
+                {{ comment_form.content_type }}
+                {{ comment_form.object_pk }}
+                {{ comment_form.timestamp }}
+                {{ comment_form.security_hash }}
+                <input type="hidden" name="next" value="{{ request.path }}" />
+                <div class="bar">
+                    <input type="submit" name="submit" value="Comentar">
+                </div>
+            </form>
+        {% else %}
+            <div class="comment_form">
+                Para comentar tienes que <a href="javascript:toggle_login_box();">iniciar sesión</a>.
+            </div>
+        {% endif %}
+        <div class="comment_list">
+            {% include comments_template %}
+        </div>
+    </div>
+<script src="{{ STATIC_URL }}js/jquery.sharrre.min.js"></script>
+<script>
+$('#facebook').sharrre({
+  share: {
+    facebook: true
+  },
+  enableHover: false,
+  enableTracking: true,
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('facebook');
+  },
+  template: '<i class="fa fa-facebook"></i>{total}'
+});
+$('#google-plus').sharrre({
+  share: {
+    googlePlus: true
+  },
+  enableHover: false,
+  enableTracking: true,
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('googlePlus');
+  },
+  template: '<i class="fa fa-google-plus"></i>+{total}',
+  urlCurl: 'http://linkstrifer.aiken.co/sharrre/sharrre.php'
+});
+$('#twitter').sharrre({
+  share: {
+    twitter: true
+  },
+  enableHover: false,
+  enableTracking: true,
+  buttons: { twitter: {via: 'an0thernoob'}},
+  click: function(api, options){
+    api.simulateClick();
+    api.openPopup('twitter');
+  },
+  template: '<i class="fa fa-twitter"></i>{total}'
+});
+</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    AnotherNoob.com
+{% endblock %}
+
+{% block og_image %}
+    <meta property="og:image"           content="{{ MEDIA_URL }}{{ article_promoted.cover }}" />
+{% endblock %}
+
+{% block header_image %}
+    {{ MEDIA_URL }}{{ article_promoted.cover }}
+{% endblock %}
+
+{% block header_box %}
+    <a href="/article/{{ article_promoted.url_slug }}/{{ article_promoted.id }}">
+        <h1>{{ article_promoted.title }}</h1>
+        <span class="summary">{{ article_promoted.summary }}</span>
+        <span class="author">por {{ article_promoted.author.first_name }} {{ article_promoted.author.last_name }}</span>
+    </a>
+{% endblock %}
+
+{% block page_content %}
+    {% block js %}
+        {{ block.super }}
+        <script src="{{ STATIC_URL }}js/endless_pagination/endless-pagination.js"></script>
+        <script src="{{ STATIC_URL }}js/endless_pagination/endless_on_scroll.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+        <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+        <script>
+            $.endlessPaginate({
+                paginateOnScroll: true,
+                paginateOnScrollMargin: 100,
+                paginateOnScrollChunkSize: 5
+            });
+        </script>
+    {% endblock %}
+    <div id="article_list">
+    </div>
+    <script type="text/template" id="list_template">
+    </script>
+    <script type="text/template" id="article_template">
+        <article class="article_list">
+            <a href="/article/<%= article.url_slug %>/<%= article.id %>">
+                <div style="background-image: url(<%= article.cover %>)" class="thumb screen-only"></div>
+                <h2><%= article.title %></h2>
+                <div class="summary">
+                    <%= article.summary %>
+                </div>
+                <i class="extra_data">
+                    por <span class="author"><%= article.author.first_name %> <%= article.author.last_name %></span> 
+                    el <i class="date"><%= article.date %></i>
+                </i>
+            </a>
+        </article>
+    </script>
+    <script>
+        var app = {};
+        app.chunk = 0;
+        app.Article = Backbone.Model.extend({});
+        
+        app.News = Backbone.Collection.extend({
+            model: app.Article,
+            url: '/backbone/articles'
+        });
+
+        app.ListView = Backbone.View.extend({
+            el: $('#article_list'),
+            template: _.template($('#article_template').html()),
+            initialize: function() {
+                var self = this;
+                this.articles = new app.News();
+                this.articles.fetch({success: function() {
+                    self.render(1);
+                }});
+            },
+            render: function() {
+                for(var i = (app.chunk*5); i < ((app.chunk+1)*5); i++) {
+                    try {
+                        this.$el.append(this.template({article: this.articles.models[i].toJSON()}));
+                    }
+                    catch(error) {
+                        break;
+                    }
+                }
+                app.chunk++;
+            }
+        });
+    </script>
+    <script>
+        app.list = new app.ListView({chunk: 0});
+
+        function scrollBottom() {
+            var position = $(document).height() - $(window).scrollTop() - $(window).height();
+            if(position <= 200) {
+                app.list.render();
+            }
+        };
+
+        $(document).ready(function(){
+            $(window).scroll(function(){
+                scrollBottom();
+            })
+        })
+    </script>
+    <aside>
+        <div class="ad adaptable screen-only">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8631344561683272"
+                     data-ad-slot="2071986204"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </aside>
+{% endblock %}

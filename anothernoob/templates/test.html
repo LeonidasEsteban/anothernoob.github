@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+    {% for champion in champion_list %}
+        {{ champion.name }}
+        <img src="{% thumbnail champion.portrait '32x32' %}" />
+        <img src="{{ MEDIA_URL }}{{ champion.portrait }}" />
+    {% endfor %}
+    {% if form %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="enviar">
+        </form>
+    {% endif %}
+</body>
+</html>

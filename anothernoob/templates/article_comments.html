@@ -1,0 +1,25 @@
+{% load comments %}
+{% get_comment_list for article as comment_list %}
+{% load endless %}
+{% lazy_paginate comment_list %}
+{% get_comment_count for article as comment_count %}
+{% if comment_count = 0 %}
+    <div class="comment">
+        ¡Vamos! ¿Qué esperas? Sé el primero en comentar.
+    </div>
+{% else %}
+    {% for comment in comment_list %}
+        <div class="comment">
+            <div class="user">
+                {{ comment.user.first_name }} {{ comment.user.last_name }}
+            </div>
+            <div class="date">
+                {{ comment.submit_date|date:'d' }} de {{ comment.submit_date|date:'F' }}
+            </div>
+            <div class="content">
+                {{ comment.comment }}
+            </div>
+        </div>
+    {% endfor %}
+    {% show_more %}
+{% endif %}

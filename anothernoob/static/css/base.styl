@@ -1,0 +1,693 @@
+@import "font-face.css"
+
+*
+	box-sizing border-box
+
+a,
+a:visited
+	transition: all .3s ease-in-out
+
+a:hover
+	color #a6c
+
+body
+	background #000
+	background-attachment fixed
+	background-position center top
+	background-size 100%
+	background-repeat no-repeat
+	font-family 'Open Sans', sans-serif !important
+	font-size 16px
+	margin 0
+
+blockquote
+	font-style italic
+
+footer
+	background-color #000
+	height 150px
+	width 100%
+
+	a
+		color #333 !important
+
+h1,
+h2,
+h3,
+h4,
+h5
+	font-family 'Open Sans', sans-serif !important
+
+	&:first-letter
+		text-transform capitalize
+
+header
+	background-size 100%
+	background-repeat no-repeat
+	background-attachment fixed
+	color rgba(255,255,255,.9)
+	height 500px
+	width 100%
+
+	&.single
+		height 300px
+	
+	.header_box
+		background rgba(0,0,0,.35)
+		height 100%
+		padding 200px 3em 1em 3em
+		text-align center
+		text-shadow 0 0 10px rgba(0,0,0,1)
+		width 100%
+
+		a
+			color rgba(250,250,250,.9)
+			display block
+			padding 5em 1em
+			
+			&:hover
+				color rgba(250,250,250,.9)
+				text-decoration underline
+				text-shadow 0 0 10px rgba(255,255,255,1)
+
+		h1
+			font-size 2em
+			font-weight bold
+
+		.author
+			display block
+			font-size .7em
+			font-style italic
+
+			&:hover
+				color rgba(250,250,250,.9)
+				text-decoration underline
+				text-shadow 0 0 10px rgba(255,255,255,1)
+		
+input
+	font-family 'Open Sans', sans-serif !important
+
+nav
+	background: linear-gradient(to bottom, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 100%)
+	height 65px
+	padding 0 1em
+	position fixed
+	text-align left
+	top 0
+	transition all .2s ease-in-out
+	width 100%
+	z-index 100000
+
+	ul
+		height 65px
+		padding 0
+
+		li
+			color #fff
+			cursor pointer
+			display inline-block
+			font-weight bold
+			height 65px
+			overflow hidden
+			padding 1.5em 1em
+			transition all .1s ease-in-out
+			text-align center
+			vertical-align top
+
+			&:hover,
+			&.open
+				background #a6c
+				color #fff
+	
+	&.float
+		background #a6c
+		height 42px
+
+		ul
+			height 42px
+
+			li
+				height 42px
+				padding .7em 1em
+
+				&:hover,
+				&.open
+					background #fff
+					color #a6c
+
+section
+	background-color #fafafa
+	background-color rgba(255,255,255,.95)
+	box-shadow 0 0 20px #000
+	padding 1em 0
+
+p
+	margin 0 0 20px
+
+#content
+	color #222
+	margin 2em auto
+	max-width 1024px
+	overflow hidden
+
+	&:first-letter
+		text-transform capitalize
+
+	#article_list
+		display inline-block
+		vertical-align top
+		width 840px
+
+	aside
+		display inline-block
+		padding 1em
+		vertical-align top
+		width 170px
+
+	article
+
+		.extra_data
+			display block
+
+		&.article_list
+			border-top 1px dashed #aaa
+			min-height 150px
+			padding 1em 0 .5em 0
+
+			&:first-child
+				border-top none
+
+			a
+				display inline-block
+				color #222
+				text-align left
+				width 100%
+
+				&:hover
+					text-decoration none
+
+				&:hover h2
+					color #a6c
+
+				&:hover .summary
+					color #222
+
+			h2
+				font-size 1.5em
+				font-weight bold
+				margin-bottom 1em
+				margin-top .5em
+				text-align left
+
+			.extra_data
+				color #666
+				font-size .7em
+				margin 1em 0
+
+				&:first-letter
+					text-transform uppercase
+
+			.summary
+				font-size 16px
+				vertical-align top
+
+			.thumb
+				background-repeat no-repeat
+				background-position top center
+				background-size auto 100%
+				float right
+				height 128px
+				margin 0 10px
+				width 128px
+
+		&.article_single
+
+			h1
+				font-size 3em
+				font-weight bold
+
+			img
+				margin 1em 0
+				width 100% !important
+
+			.content
+				
+				a
+					color #222
+					font-weight bold
+					text-decoration underline
+
+				iframe
+					
+					&:not(.twitter-tweet)
+						height 506px
+						margin 1em 0
+						width 100%
+
+					&.twitter-tweet
+						background #fff
+						margin 1em auto !important
+						width 80%
+
+			.extra_data
+				color #666
+				font-size .8em
+				margin 1em 0
+
+				&:first-letter
+					text-transform uppercase
+
+			.share_buttons
+				border-bottom 1px solid #a6c
+				border-top 1px solid #a6c
+				margin 1em 0
+				outline 1px solid #fff
+				padding 1em 0
+
+				b
+					display block
+					margin-bottom 1em
+
+				.button_share
+					margin-right 1em
+					min-width 80px
+					vertical-align top
+
+			.social_profile
+				border-bottom 1px solid #a6c
+				border-top 1px solid #a6c
+				margin 2em 0
+				padding 1em 0 .5em 0
+
+				*
+					vertical-align top
+
+				b
+					display block
+					margin-bottom 1em
+
+				.fb-like
+					margin-left 1em
+
+				.twitter-follow-button
+					margin-left 1em
+			.source
+				margin 1em 0
+
+				a
+					color #222
+					text-decoration underline
+
+			.summary
+				font-size 1.5em
+				margin 5px 0
+
+	.comment_form
+		border-bottom 1px solid #eee
+		border-top 1px solid #eee
+		display table
+		outline 1px solid #fff
+		padding 1em 0 2em 0
+		width 100%
+
+		a
+			color #222
+			font-weight bold
+			text-decoration underline
+
+		input[type="submit"]
+			background #93c
+			background linear-gradient(bottom, #93c 5%, #7228a3 100%)
+			border-color rgba(0,0,0,.2)
+			border-style solid
+			border-width 0 1px 1px 1px
+			border-radius 0 0 5px 5px
+			color #fff
+			display table-cell
+			font-size 1024px
+			height 32px
+			padding .3em 1em
+			width 30%
+
+		label
+			display table-row
+
+			&:first-letter
+				text-transform uppercase
+
+			textarea
+				width 100%
+
+		#id_comment
+			border solid 1px rgba(0,0,0,.2)
+			border-radius 5px 5px 0 0
+			height 100px
+
+		#id_honeypot
+			display none
+
+		.comment_textarea
+			margin-bottom 0
+
+		.bar
+			display table-row
+			text-align right
+
+		.user
+			display table-row
+			height 40px
+
+			.username
+				display inline-block
+				font-weight bold
+				width 75%
+
+			.extra_data
+				color rgba(0,0,0,.3)
+				display inline-block
+				text-align right
+				width 25%
+
+	.comment_list
+
+		.comment
+			border-bottom 1px dashed rgba(0,0,0,.2)
+			padding 1em 0
+			position relative
+			width 100%
+
+			&:last-child
+				border-bottom none
+
+			.date
+				color rgba(0,0,0,.4)
+				position absolute
+				right 0
+				top 1em
+
+	.suggestion_bottom
+		background #333
+		background-image url('data:image/png;base64,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')
+		color #fff
+		padding 1em 1em 2em 1em
+		text-align center
+		width 100%
+
+		span
+			display block
+			margin 1em 0
+
+		a
+			color rgba(255,255,255,.9)
+
+			&:hover
+				color rgba(250,250,250,.9)
+				text-decoration none
+				text-shadow 0 0 10px #fff
+
+		.article_suggest
+			background-size auto 100%
+			background-repeat no-repeat
+			background-position top center
+			border 1px solid #000
+			box-shadow 0 0 5px 0 #000
+			display inline-block
+			margin 10px auto
+			vertical-align top
+			width 30%
+
+			h2
+				font-weight bold
+				font-size 1em
+
+			.content
+				background rgba(0,0,0,.4)
+				height 200px
+				padding 1em
+
+#login-box
+	background #fff
+	color #a6c
+	cursor default
+	margin-top 20px
+	padding 1em
+	text-align justify
+	width 250px
+
+.float #login-box
+	background #a6c
+	color #fff
+	margin-top 10px
+
+#user-box
+	text-transform capitalize
+
+.ad
+	padding 1em
+	text-align center
+	width 100%
+
+	iframe
+
+		embed
+			border 1px dashed #777
+
+.btn
+	
+	&:hover
+		color #fff !important
+
+.mobile-only
+	display none
+
+/*Large desktop*/
+@media (min-width: 1200)
+
+	.large-only
+		display block
+
+	.mobile-only
+		display none
+
+/*Desktop*/
+@media (min-width: 980px) and (max-width: 1199px)
+
+	header
+		height 400px
+
+		&.suggest
+			height auto
+
+			.header_box
+				padding 80px 1em 1em 1em
+
+		.header_box
+			padding 150px 3em 1em 3em
+
+			.article_suggest
+				background-size auto 100%
+				background-position center center
+				display inline-block
+				height auto
+				margin 1em 2em
+				width 250px
+
+				.content
+					height 230px
+
+	#content
+		padding 0 1em
+		width 100%
+
+		#article_list
+			width 100%
+
+	.mobile-only
+		display none
+/*Portrait Tablet to Landscape and Desktop*/
+@media (min.width: 768px) and (max-width: 979px)
+	
+	body
+		background-size auto 110%
+
+	header
+		height 400px
+
+		.header_box
+			padding 100px 3em 1em 3em
+
+	#content
+		padding 0 1em
+		width 100%
+
+		#article_list
+			width 100%
+
+	.mobile-only
+		display none
+
+/*Landstacpe Phone to Portrait Tablet*/
+@media (max-width: 767px)
+
+	body
+		background-size auto 100%
+
+	header
+		height 250px
+
+		&.single
+			height 200px
+
+		.header_box
+			padding 1em
+
+			a
+				padding 1em
+
+	nav
+		height 42px
+		overflow hidden
+		padding 0
+		position inherit
+
+		ul
+
+			a
+
+				&:hover
+					text-decoration none
+
+			li
+				background #a6c
+				border 1px solid rgba(255,255,255,.1)
+				display block
+				height 42px
+				padding .7em 1em
+				width 100%
+
+				&#mobile_menu:before
+					background #fff
+					box-shadow 0 0.35em 0 0 #fff,
+						0 0.7em 0 0 #fff
+					content ""
+					cursor pointer
+					height 0.2em
+					left 1em
+					top 1em
+					position absolute
+					width 1em
+
+	#content
+		padding 0 1em
+
+		article
+				
+				&.article_list
+					border-top 1px dashed #aaa
+					min-height 100%
+					padding 1em 0 .5em 0
+
+				&.article_single
+					
+					h1
+						font-size 2em
+
+					iframe
+						height 360px
+
+		#article_list
+			display block
+			width 100%
+
+		.suggestion_bottom
+			
+			.article_suggest
+				display block
+				background-size 100%
+				width 100%
+
+				.content
+					height auto
+		
+	#login-button
+		padding .7em 0
+
+	#login-box
+		margin-top 10px
+		width 100%
+
+	.mobile-only
+		display block
+
+	.screen-only
+		display none
+
+/*Landscape Phones and down*/
+@media (max-width: 480px)
+
+	body
+		background-size auto 100%
+		background-position top center
+	
+	header
+		height auto
+
+		&.single
+			height 100px
+
+		.header_box
+
+			h1
+				font-size 1.5em
+				font-weight bold
+
+	nav
+		height 42px
+		overflow hidden
+		padding 0
+		position inherit
+
+		ul
+
+			li
+				background #a6c
+				display block
+				height 42px
+				padding .7em 1em
+				width 100%
+
+	#content
+		padding 0 1em
+
+		article
+			
+			&.article_list
+				border-top 1px dashed #aaa
+				min-height 100%
+				padding 1em 9 .5em 0
+
+			&.article_single
+				
+				h1
+					font-size 2em
+
+				iframe
+					height 360px
+
+		.suggestion_bottom
+			
+			.article_suggest
+				background-size auto 100%
+
+		#article_list
+			display block
+			width 100%
+
+	.mobile-only
+		display none
+
+	.not-mobile
+		display none
+
+	.screen-only
+		display none

@@ -67,7 +67,7 @@ def article_single(request, url_slug, article_id):
 def backbone_article_list(request):
     if request.method == 'GET':
         try:
-            articles = Articles.objects.filter(published = True)
+            articles = Articles.objects.filter(published = True).order_by('-date')
             article_list = [article.as_json() for article in articles]
             return HttpResponse(json.dumps(article_list), mimetype = "application/json")
         except:
